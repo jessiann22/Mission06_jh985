@@ -12,6 +12,7 @@ namespace Mission06_jh985.Models
         public string Category { get; set; }
 
         [Required]
+        [Key]
         public string Title { get; set; }
 
         [Required]
