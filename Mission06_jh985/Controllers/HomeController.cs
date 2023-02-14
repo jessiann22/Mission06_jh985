@@ -12,10 +12,13 @@ namespace Mission06_jh985.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private MovieEntryContext movieTimeContext { get; set; }
+        
+        //constructor
+        public HomeController(ILogger<HomeController> logger, MovieEntryContext nameTime)
         {
             _logger = logger;
+            movieTimeContext = nameTime;
         }
 
         public IActionResult Index()
@@ -42,6 +45,8 @@ namespace Mission06_jh985.Controllers
         [HttpPost]
         public IActionResult MovieEntry(MovieEntry me)
         {
+            movieTimeContext.Add(me);
+            movieTimeContext.SaveChanges();
             return View();
         }
 
