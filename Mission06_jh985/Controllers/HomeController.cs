@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Mission06_jh985.Models;
 using System;
@@ -11,22 +12,15 @@ namespace Mission06_jh985.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private MovieEntryContext movieTimeContext { get; set; }
         
         //constructor
-        public HomeController(ILogger<HomeController> logger, MovieEntryContext nameTime)
+        public HomeController(MovieEntryContext nameTime)
         {
-            _logger = logger;
             movieTimeContext = nameTime;
         }
 
         public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Privacy()
         {
             return View();
         }
@@ -39,6 +33,8 @@ namespace Mission06_jh985.Controllers
         [HttpGet]
         public IActionResult MovieEntry()
         {
+            ViewBag.Category = movieTimeContext.Category.ToList();
+
             return View();
         }
 
@@ -50,10 +46,29 @@ namespace Mission06_jh985.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult MovieList ()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var movieApps = movieTimeContext.Response
+                .Include(x => x.Category)
+                .OrderBy(x => x.Title)
+                .ToList();
+
+            return View(movieApps);
         }
+
+        public IActionResult Edit (int movieid)
+        {
+            ViewBag.Category = movieTimeContext.Category.ToList();
+
+            var movie = movieTimeContext.Response.Single(x => x.MovieID == movieid);
+
+            return View("MovieEntry");
+        }
+
+        public IActionResult Delete()
+        {
+            return View();
+        }
+
     }
 }

@@ -15,13 +15,26 @@ namespace Mission06_jh985.Models
         }
         public DbSet<MovieEntry> Response { get; set; }
 
+        public DbSet<Category> Category { get; set; }
+
+        //seed data
+
         protected override void OnModelCreating(ModelBuilder mb)
         {
+            mb.Entity<Category>().HasData(
+                new Category { CategoryID = 1, CategoryName = "Action" },
+                new Category { CategoryID = 2, CategoryName = "Comedy" },
+                new Category { CategoryID = 3, CategoryName = "Romance" },
+                new Category { CategoryID = 4, CategoryName = "Sports" },
+                new Category { CategoryID = 5, CategoryName = "Fantasy" }
+                );
+
+
             mb.Entity<MovieEntry>().HasData(
 
                 new MovieEntry
                 {
-                    Category = "Romance",
+                    CategoryID = 3,
                     Title = "The Proposal",
                     Year = 1980,
                     Director = "Joseph B. Worthin",
@@ -33,7 +46,7 @@ namespace Mission06_jh985.Models
 
                 new MovieEntry
                 {
-                    Category = "Fantasy",
+                    CategoryID = 5,
                     Title = "Harry Potter",
                     Year = 2007,
                     Director = "JK Rowling",
@@ -45,7 +58,7 @@ namespace Mission06_jh985.Models
 
                 new MovieEntry
                 {
-                    Category = "Sports",
+                    CategoryID = 4,
                     Title = "Forever Strong",
                     Year = 2013,
                     Director = "Kevin Holt",
@@ -53,7 +66,7 @@ namespace Mission06_jh985.Models
                     Edited = true,
                     Lent = "Dee Dee Holt",
                     Notes = "Motivated me to win the state champtionship"
-                });
+                }) ;
 
 
         }

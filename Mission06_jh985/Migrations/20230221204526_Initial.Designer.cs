@@ -8,7 +8,7 @@ using Mission06_jh985.Models;
 namespace Mission06_jh985.Migrations
 {
     [DbContext(typeof(MovieEntryContext))]
-    [Migration("20230214210649_Initial")]
+    [Migration("20230221204526_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -17,14 +17,54 @@ namespace Mission06_jh985.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.32");
 
+            modelBuilder.Entity("Mission06_jh985.Models.Category", b =>
+                {
+                    b.Property<int>("CategoryID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CategoryName")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("CategoryID");
+
+                    b.ToTable("Category");
+
+                    b.HasData(
+                        new
+                        {
+                            CategoryID = 1,
+                            CategoryName = "Action"
+                        },
+                        new
+                        {
+                            CategoryID = 2,
+                            CategoryName = "Comedy"
+                        },
+                        new
+                        {
+                            CategoryID = 3,
+                            CategoryName = "Romance"
+                        },
+                        new
+                        {
+                            CategoryID = 4,
+                            CategoryName = "Sports"
+                        },
+                        new
+                        {
+                            CategoryID = 5,
+                            CategoryName = "Fantasy"
+                        });
+                });
+
             modelBuilder.Entity("Mission06_jh985.Models.MovieEntry", b =>
                 {
                     b.Property<string>("Title")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("CategoryID")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Director")
                         .IsRequired()
@@ -49,13 +89,15 @@ namespace Mission06_jh985.Migrations
 
                     b.HasKey("Title");
 
+                    b.HasIndex("CategoryID");
+
                     b.ToTable("Response");
 
                     b.HasData(
                         new
                         {
                             Title = "The Proposal",
-                            Category = "Romance",
+                            CategoryID = 3,
                             Director = "Joseph B. Worthin",
                             Edited = true,
                             Lent = "David A Bednar",
@@ -66,7 +108,7 @@ namespace Mission06_jh985.Migrations
                         new
                         {
                             Title = "Harry Potter",
-                            Category = "Fantasy",
+                            CategoryID = 5,
                             Director = "JK Rowling",
                             Edited = false,
                             Lent = "Pooh Bear",
@@ -77,7 +119,7 @@ namespace Mission06_jh985.Migrations
                         new
                         {
                             Title = "Forever Strong",
-                            Category = "Sports",
+                            CategoryID = 4,
                             Director = "Kevin Holt",
                             Edited = true,
                             Lent = "Dee Dee Holt",
@@ -85,6 +127,15 @@ namespace Mission06_jh985.Migrations
                             Rating = "R",
                             Year = 2013
                         });
+                });
+
+            modelBuilder.Entity("Mission06_jh985.Models.MovieEntry", b =>
+                {
+                    b.HasOne("Mission06_jh985.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
