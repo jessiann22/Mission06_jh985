@@ -57,7 +57,7 @@ namespace Mission06_jh985.Controllers
 
         public IActionResult MovieList ()
         {
-            var movieApps = movieTimeContext.Response
+            var movieApps = movieTimeContext.Responses
                 .Include(x => x.Category)
                 .OrderBy(x => x.Title)
                 .ToList();
@@ -69,7 +69,7 @@ namespace Mission06_jh985.Controllers
         {
             ViewBag.Category = movieTimeContext.Category.ToList();
 
-            var movie = movieTimeContext.Response.Single(x => x.MovieID == movieid);
+            var movie = movieTimeContext.Responses.Single(x => x.MovieID == movieid);
 
             return View("MovieEntry");
         }
@@ -88,7 +88,7 @@ namespace Mission06_jh985.Controllers
 
         public IActionResult Delete(int movieid)
         {
-            var movie = movieTimeContext.Response.Single(x => x.MovieID == movieid);
+            var movie = movieTimeContext.Responses.Single(x => x.MovieID == movieid);
             return View();
         }
 
@@ -96,7 +96,7 @@ namespace Mission06_jh985.Controllers
 
         public IActionResult Delete (MovieEntryModel me3)
         {
-            movieTimeContext.Response.Remove(me3);
+            movieTimeContext.Responses.Remove(me3);
             movieTimeContext.SaveChanges();
 
             return RedirectToAction("MovieList");

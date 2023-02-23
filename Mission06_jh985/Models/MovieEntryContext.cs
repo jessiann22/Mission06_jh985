@@ -13,7 +13,7 @@ namespace Mission06_jh985.Models
         {
             //leave blank for now
         }
-        public DbSet<MovieEntryModel> Response { get; set; }
+        public DbSet<MovieEntryModel> Responses { get; set; }
 
         public DbSet<Category> Category { get; set; }
 
