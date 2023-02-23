@@ -8,7 +8,7 @@ using Mission06_jh985.Models;
 namespace Mission06_jh985.Migrations
 {
     [DbContext(typeof(MovieEntryContext))]
-    [Migration("20230221204526_Initial")]
+    [Migration("20230223054021_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -58,10 +58,11 @@ namespace Mission06_jh985.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Mission06_jh985.Models.MovieEntry", b =>
+            modelBuilder.Entity("Mission06_jh985.Models.MovieEntryModel", b =>
                 {
-                    b.Property<string>("Title")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("MovieID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("CategoryID")
                         .HasColumnType("INTEGER");
@@ -84,52 +85,59 @@ namespace Mission06_jh985.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("Year")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("Title");
+                    b.HasKey("MovieID");
 
                     b.HasIndex("CategoryID");
 
-                    b.ToTable("Response");
+                    b.ToTable("Responses");
 
                     b.HasData(
                         new
                         {
-                            Title = "The Proposal",
+                            MovieID = 1,
                             CategoryID = 3,
                             Director = "Joseph B. Worthin",
                             Edited = true,
                             Lent = "David A Bednar",
                             Notes = "Best Movie created babe",
                             Rating = "PG-13",
+                            Title = "The Proposal",
                             Year = 1980
                         },
                         new
                         {
-                            Title = "Harry Potter",
+                            MovieID = 2,
                             CategoryID = 5,
                             Director = "JK Rowling",
                             Edited = false,
                             Lent = "Pooh Bear",
                             Notes = "pretty good movie babe",
                             Rating = "PG-13",
+                            Title = "Harry Potter",
                             Year = 2007
                         },
                         new
                         {
-                            Title = "Forever Strong",
+                            MovieID = 3,
                             CategoryID = 4,
                             Director = "Kevin Holt",
                             Edited = true,
                             Lent = "Dee Dee Holt",
                             Notes = "Motivated me to win the state champtionship",
                             Rating = "R",
+                            Title = "Forever Strong",
                             Year = 2013
                         });
                 });
 
-            modelBuilder.Entity("Mission06_jh985.Models.MovieEntry", b =>
+            modelBuilder.Entity("Mission06_jh985.Models.MovieEntryModel", b =>
                 {
                     b.HasOne("Mission06_jh985.Models.Category", "Category")
                         .WithMany()

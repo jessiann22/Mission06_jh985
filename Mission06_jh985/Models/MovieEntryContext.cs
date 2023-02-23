@@ -34,6 +34,7 @@ namespace Mission06_jh985.Models
 
                 new MovieEntryModel
                 {
+                    MovieID = 1,
                     CategoryID = 3,
                     Title = "The Proposal",
                     Year = 1980,
@@ -46,6 +47,7 @@ namespace Mission06_jh985.Models
 
                 new MovieEntryModel
                 {
+                    MovieID = 2,
                     CategoryID = 5,
                     Title = "Harry Potter",
                     Year = 2007,
@@ -58,6 +60,7 @@ namespace Mission06_jh985.Models
 
                 new MovieEntryModel
                 {
+                    MovieID = 3,
                     CategoryID = 4,
                     Title = "Forever Strong",
                     Year = 2013,
