@@ -71,7 +71,7 @@ namespace Mission06_jh985.Controllers
 
             var movie = movieTimeContext.Responses.Single(x => x.MovieID == movieid);
 
-            return View("MovieEntry");
+            return View("MovieEntry", movie);
         }
 
         [HttpPost]
