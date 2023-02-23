@@ -13,7 +13,7 @@ namespace Mission06_jh985.Models
         {
             //leave blank for now
         }
-        public DbSet<MovieEntry> Response { get; set; }
+        public DbSet<MovieEntryModel> Response { get; set; }
 
         public DbSet<Category> Category { get; set; }
 
@@ -30,9 +30,9 @@ namespace Mission06_jh985.Models
                 );
 
 
-            mb.Entity<MovieEntry>().HasData(
+            mb.Entity<MovieEntryModel>().HasData(
 
-                new MovieEntry
+                new MovieEntryModel
                 {
                     CategoryID = 3,
                     Title = "The Proposal",
@@ -44,7 +44,7 @@ namespace Mission06_jh985.Models
                     Notes = "Best Movie created babe"
                 },
 
-                new MovieEntry
+                new MovieEntryModel
                 {
                     CategoryID = 5,
                     Title = "Harry Potter",
@@ -56,7 +56,7 @@ namespace Mission06_jh985.Models
                     Notes = "pretty good movie babe"
                 },
 
-                new MovieEntry
+                new MovieEntryModel
                 {
                     CategoryID = 4,
                     Title = "Forever Strong",

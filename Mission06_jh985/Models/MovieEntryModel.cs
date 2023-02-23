@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Mission06_jh985.Models
 {
-    public class MovieEntry
+    public class MovieEntryModel
     {
         //build the foreign key relationship bro
         [Required]

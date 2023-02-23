@@ -2,7 +2,7 @@
     ViewData["Title"] = "Movie List";
 }
 
-@model List<MovieEntry>
+@model List<MovieEntryModel>
 
 <table class="table table-bordered table-striped">
 
@@ -32,8 +32,8 @@
             <td>@x.Lent</td>
             <td>@x.Notes</td>
 
-            <td><a asp-controller="Home" asp-action="Edit"asp-route-id="@x.id">Edit</a></td>
-            <td><a asp-controller="Home" asp-action="Delete">Delete</a></td>
+            <td><a asp-controller="Home" asp-action="Edit" asp-route-movieid="@x.MovieID">Edit</a></td>
+            <td><a asp-controller="Home" asp-action="Delete" asp-route-movieid="@x.MovieID">Delete</a></td>
         </tr>
         }
     </tbody>

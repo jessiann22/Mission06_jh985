@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Mission06_jh985.Controllers
 {
@@ -35,15 +36,23 @@ namespace Mission06_jh985.Controllers
         {
             ViewBag.Category = movieTimeContext.Category.ToList();
 
-            return View();
+            return View("MovieEntry", new MovieEntryModel());
         }
 
         [HttpPost]
-        public IActionResult MovieEntry(MovieEntry me)
+        public IActionResult MovieEntry(MovieEntryModel me)
         {
-            movieTimeContext.Add(me);
-            movieTimeContext.SaveChanges();
-            return View();
+            if (ModelState.IsValid)
+            {
+                movieTimeContext.Add(me);
+                movieTimeContext.SaveChanges();
+
+                return View();
+            }
+            else //if invalid
+            {
+                return View(me);
+            }
         }
 
         public IActionResult MovieList ()
@@ -65,9 +74,33 @@ namespace Mission06_jh985.Controllers
             return View("MovieEntry");
         }
 
-        public IActionResult Delete()
+        [HttpPost]
+
+        public IActionResult Edit (MovieEntryModel me2)
         {
+            movieTimeContext.Update(me2);
+            movieTimeContext.SaveChanges();
+
+            return RedirectToAction("MovieList");
+        }
+
+        [HttpGet]
+
+        public IActionResult Delete(int movieid)
+        {
+            var movie = movieTimeContext.Response.Single(x => x.MovieID == movieid);
             return View();
+        }
+
+        [HttpPost]
+
+        public IActionResult Delete (MovieEntryModel me3)
+        {
+            movieTimeContext.Response.Remove(me3);
+            movieTimeContext.SaveChanges();
+
+            return RedirectToAction("MovieList");
+       
         }
 
     }
